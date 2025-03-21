@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home - Original Frame Studios</title>
+    <title>Original Frame Studios Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome CDN for icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
@@ -21,7 +21,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover; /* Makes sure the video covers the whole section */
-            z-index: 1; /* Puts the video behind the content */
+            z-index: 0; /* Ensure video is below the content */
         }
 
         /* Styling the logo */
@@ -49,7 +49,7 @@
             position: absolute; /* Position it absolutely within the parent section */
             top: 20%; /* Adjust this value to move the content up or down */
             left: 10%; /* Adjust this value to move the content left or right */
-            z-index: 10; /* Ensure it's above the background video */
+            z-index: 2; /* Ensure it's above the background video */
             color: white;
             padding: 20px;
         }
@@ -66,12 +66,13 @@
             transform: translateY(0); /* Move the text to its final position */
         }
 
-        .contact-content h2 {
+        /* Specific styling for the text content */
+        .fade-up h2 {
             font-size: 3rem;
             font-weight: bold;
         }
 
-        .contact-content p {
+        .fade-up p {
             font-size: 1.2rem;
         }
 
@@ -91,6 +92,30 @@
             margin-right: 8px;
             font-size: 1.5rem;
         }
+
+        /* Styling for the navigation underline effect */
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: white;
+            transform: scaleX(0);
+            transform-origin: bottom right;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .nav-link.active::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
     </style>
 </head>
 <body class="bg-black text-white">
@@ -104,10 +129,10 @@
             </a>
             
             <ul class="flex space-x-6">
-                <li><a href="#home" class="hover:text-blue-500">Home</a></li>
-                <li><a href="#about" class="hover:text-blue-500">About</a></li>
-                <li><a href="#projects" class="hover:text-blue-500">Projects</a></li>
-                <li><a href="#contact" class="hover:text-blue-500">Contact</a></li>
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
         </nav>
     </header>
@@ -120,7 +145,7 @@
         </video>        
 
         <!-- Content Above Video -->
-        <div class="text-center relative z-10 fade-up">
+        <div class="text-center relative z-20 fade-up">
             <h2 class="text-5xl font-bold">Original Frame Studios</h2>
             <p class="text-xl mt-4 subtitle">Portfolio</p>
         </div>
@@ -128,7 +153,7 @@
 
     <!-- About Section -->
     <section id="about" class="min-h-screen bg-black flex items-center justify-center">
-        <div class="text-center fade-up">
+        <div class="text-center fade-up z-20">
             <h2 class="text-4xl font-bold">About Me</h2>
             <p class="text-xl mt-4">Under construction</p>
         </div>
@@ -136,7 +161,7 @@
 
     <!-- Projects Section -->
     <section id="projects" class="min-h-screen bg-black flex items-center justify-center">
-        <div class="text-center fade-up">
+        <div class="text-center fade-up z-20">
             <h2 class="text-4xl font-bold">My Projects</h2>
             <p class="text-xl mt-4">Under construction</p>
         </div>
@@ -150,7 +175,7 @@
         </video>
 
         <!-- Content Above Video -->
-        <div class="contact-content fade-up">
+        <div class="contact-content fade-up z-20">
             <h2 class="text-4xl font-bold">Contact</h2>
             <div class="mt-6">
                 <p class="text-lg flex items-center">
@@ -172,23 +197,43 @@
         <p>&copy; 2025 Original Frame Studios Portfolio. All rights reserved.</p>
     </footer>
 
-    <!-- JavaScript for the scroll fade-up effect -->
+    <!-- JavaScript for the scroll fade-up effect and section highlight -->
     <script>
-        // Create an Intersection Observer instance
-        const observer = new IntersectionObserver((entries, observer) => {
+        // Create an Intersection Observer instance for fading-up elements
+        const fadeObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
-                    observer.unobserve(entry.target); // Stop observing the element once it's visible
+                } else {
+                    entry.target.classList.remove('visible');
                 }
             });
         }, {
             threshold: 0.5 // Trigger when 50% of the element is visible
         });
 
-        // Observe all sections that have the 'fade-up' class
+        // Observe all fade-up sections
         document.querySelectorAll('.fade-up').forEach(section => {
-            observer.observe(section);
+            fadeObserver.observe(section);
+        });
+
+        // Create an Intersection Observer instance for navigation link underline
+        const navObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const link = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
+                if (entry.isIntersecting) {
+                    link.classList.add('active'); // Add the underline effect
+                } else {
+                    link.classList.remove('active'); // Remove the underline effect
+                }
+            });
+        }, {
+            threshold: 0.5 // Trigger when 50% of the element is visible
+        });
+
+        // Observe all sections to track the active navigation link
+        document.querySelectorAll('section').forEach(section => {
+            navObserver.observe(section);
         });
     </script>
 
