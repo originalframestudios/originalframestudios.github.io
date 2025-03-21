@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - My Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white">
+
+    <!-- Header -->
+    <header class="p-6 flex justify-between items-center">
+        <h1 class="text-2xl font-bold">My Portfolio</h1>
+        <nav>
+            <a href="index.html" class="mx-4">Home</a>
+            <a href="projects.html" class="mx-4">Projects</a>
+            <a href="about.html" class="mx-4">About</a>
+            <a href="contact.html" class="mx-4">Contact</a>
+        </nav>
+    </header>
+
+    <!-- Main Section -->
+    <main class="max-w-4xl mx-auto px-6 py-16">
+        <h2 class="text-4xl font-bold text-center">Contact Me</h2>
+        <p class="mt-4 text-xl text-center">Feel free to reach out if you have any questions or just want to connect!</p>
+
+        <!-- Contact Form -->
+        <section class="mt-10">
+            <form action="https://formspree.io/f/mwkabraz" method="POST" class="max-w-xl mx-auto">
+                <div class="space-y-6">
+                    <div>
+                        <label for="name" class="block text-lg font-medium">Your Name</label>
+                        <input type="text" id="name" name="name" required class="mt-2 w-full px-4 py-2 bg-gray-800 text-white rounded-md focus:ring-2 focus:ring-blue-500" placeholder="Enter your name">
+                    </div>
+
+                    <div>
+                        <label for="email" class="block text-lg font-medium">Your Email</label>
+                        <input type="email" id="email" name="email" required class="mt-2 w-full px-4 py-2 bg-gray-800 text-white rounded-md focus:ring-2 focus:ring-blue-500" placeholder="Enter your email address">
+                    </div>
+
+                    <div>
+                        <label for="message" class="block text-lg font-medium">Your Message</label>
+                        <textarea id="message" name="message" required rows="4" class="mt-2 w-full px-4 py-2 bg-gray-800 text-white rounded-md focus:ring-2 focus:ring-blue-500" placeholder="Write your message here..."></textarea>
+                    </div>
+
+                    <div class="text-center">
+                        <button type="submit" class="px-6 py-2 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                            Send Message
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <!-- Footer (optional) -->
+    <footer class="bg-gray-800 text-center p-4 mt-16">
+        <p>&copy; 2025 My Portfolio. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
